@@ -4,14 +4,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Author: Finley Amber
- * DateTime  : 2016/5/26 22:27
- * Description :
+ * Author: Finley Amber DateTime : 2016/5/26 22:27 Description :
  */
 
 public class CustomerTest {
 
-    private final String AMOUNT_TIP = "Amount owed is\t%.1f";
+    private final String AMOUNT_TIP             = "Amount owed is\t%.1f";
     private final String FREQUENT_RENTAR_POINTS = "You earned\t%d frequent renter points";
 
     @Test
@@ -26,27 +24,27 @@ public class CustomerTest {
         Rental childrensRental = new Rental(childrensMovie, 4);
         Rental newReleaseRental = new Rental(newReleaseMovie, 2);
 
-        /*Only Regular Move */
+        /* Only Regular Move */
         customer.addRental(regularRental);
         String result = customer.statement();
         Assert.assertTrue(result.contains(String.format(AMOUNT_TIP, 3.5)));
         Assert.assertTrue(result.contains(String.format(FREQUENT_RENTAR_POINTS, 1)));
 
-        /*Only New Release Movie*/
+        /* Only New Release Movie */
         customer.getRentalList().clear();
         customer.addRental(new Rental(newReleaseMovie, 1));
         result = customer.statement();
         Assert.assertTrue(result.contains(String.format(AMOUNT_TIP, (double) 3)));
         Assert.assertTrue(result.contains(String.format(FREQUENT_RENTAR_POINTS, 1)));
 
-        /*Only Childrens Moive*/
+        /* Only Childrens Moive */
         customer.getRentalList().clear();
         customer.addRental(new Rental(childrensMovie, 1));
         result = customer.statement();
         Assert.assertTrue(result.contains(String.format(AMOUNT_TIP, 1.5)));
         Assert.assertTrue(result.contains(String.format(FREQUENT_RENTAR_POINTS, 1)));
 
-        /*With All Moives*/
+        /* With All Moives */
         customer.getRentalList().clear();
         customer.addRental(regularRental);
         customer.addRental(childrensRental);
