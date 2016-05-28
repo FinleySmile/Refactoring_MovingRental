@@ -17,13 +17,37 @@ public class Movie {
     private String          title;
 
     @Getter
-    @Setter
-    private int             priceCode;
+
+    private Price           price;
 
     public Movie() {}
 
     public Movie(String title, int priceCode) {
         this.title = title;
-        this.priceCode = priceCode;
+        setPriceCode(priceCode);
+    }
+
+    public void setPriceCode(int priceCode) {
+        switch (priceCode) {
+            case Movie.REGULAR:
+                price = new RegularPrice();
+                break;
+            case Movie.CHILDRENS:
+                price = new ChildrensPrice();
+                break;
+            case Movie.NEW_RELEASE:
+                price = new NewReleasePrice();
+                break;
+            default:
+                throw new IllegalArgumentException("Incorrect Price Code");
+        }
+    }
+
+    public double getCharge(int daysRented) {
+        return getPrice().getCharge(daysRented);
+    }
+
+    public int getFrequentRenterPoints(int daysRented) {
+        return price.getFrequentRenterPoints(daysRented);
     }
 }
